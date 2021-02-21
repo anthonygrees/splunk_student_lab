@@ -159,6 +159,11 @@ resource "aws_instance" "splunk" {
   }
 
   provisioner "file" {
+    destination = "/tmp/db_audit_30DAY.csv"
+    source      = "./data/db_audit_30DAY.csv"
+  }
+
+  provisioner "file" {
     content     = templatefile("${path.module}/templates/linux_node_user_data.sh.tpl", { splunk_password = var.splunk_password })
     destination = "/tmp/linux_node_user_data.sh"
   }

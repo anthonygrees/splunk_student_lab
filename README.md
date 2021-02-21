@@ -70,4 +70,9 @@ http://<splunk_server_public_ip>:8000
   
   
 ### Data Load
-TBC  
+Files can be loaded from the `data` directory.  The data is loaded into the `main` index by default and with a `sourcetype` set during the load.  Data is loaded using the `splunk add oneshot` command.  
+  
+```bash
+splunk add oneshot /tmp/data_file.csv -index main -sourcetype test_source -auth user:password
+```
+  

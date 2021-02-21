@@ -8,4 +8,9 @@ install_splunk() {
     sudo /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt --seed-passwd ${splunk_password}
 }
 
+load_data() {
+    sudo /opt/splunk/bin/splunk add oneshot /tmp/db_audit_30DAY.csv -index main -sourcetype audit_anthony -auth admin:${splunk_password}
+}
+
 install_splunk
+load_data
