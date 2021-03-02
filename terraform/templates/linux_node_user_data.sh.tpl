@@ -18,11 +18,11 @@ install_event_gen() {
     sudo cd /tmp/
     sudo chown -Rh splunk:splunk /opt/splunk/
     sudo /opt/splunk/bin/splunk enable boot-start -user splunk
-    ## sudo echo 'splunk ALL=(root) NOPASSWD: /usr/bin/systemctl restart Splunkd.service' >> /etc/sudoers
-    ## sudo echo 'splunk ALL=(root) NOPASSWD: /usr/bin/systemctl stop Splunkd.service' >> /etc/sudoers
-    ## sudo echo 'splunk ALL=(root) NOPASSWD: /usr/bin/systemctl start Splunkd.service' >> /etc/sudoers
-    ## sudo echo 'splunk ALL=(root) NOPASSWD: /usr/bin/systemctl status Splunkd.service' >> /etc/sudoers
-    ## reboot
+}
+
+install_apps() {
+    sudo ar -xvf /tmp/splunk-app-for-amazon-connect_003.tgz  -C /opt/splunk/etc/deployment-apps
+    sudo chown -Rh splunk:splunk opt/splunk/etc/deployment-apps
 }
 
 load_data() {
@@ -36,3 +36,4 @@ load_data() {
 install_splunk
 load_data
 install_event_gen
+install_apps

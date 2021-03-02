@@ -59,6 +59,11 @@ resource "aws_instance" "splunk" {
     source      = "./data/db_audit_30DAY.csv"
   }
 
+    provisioner "file" {
+    destination = "/tmp/splunk-app-for-amazon-connect_003.tgz"
+    source      = "./apps/splunk-app-for-amazon-connect_003.tgz"
+  }
+
   provisioner "file" {
     destination = "/tmp"
     source      = "./data/cloudtrail"
