@@ -55,10 +55,6 @@ variable "splunk_password" {
   
 }
 
-variable "base_sessionid" {
-  
-}
-
 #
 # Provider
 #
