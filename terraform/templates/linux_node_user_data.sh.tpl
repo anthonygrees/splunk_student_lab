@@ -21,8 +21,7 @@ install_event_gen() {
 }
 
 install_apps() {
-    sudo ar -xvf /tmp/splunk-app-for-amazon-connect_003.tgz  -C /opt/splunk/etc/deployment-apps
-    sudo chown -Rh splunk:splunk opt/splunk/etc/deployment-apps
+    sudo sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-amazon-connect_003.tgz
 }
 
 load_data() {
@@ -34,6 +33,6 @@ load_data() {
 }
 
 install_splunk
+install_apps
 load_data
 install_event_gen
-install_apps
