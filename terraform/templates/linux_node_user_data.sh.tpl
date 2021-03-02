@@ -21,7 +21,10 @@ install_event_gen() {
 }
 
 install_apps() {
-    sudo sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-amazon-connect_003.tgz
+    git clone https://github.com/tfrederick74656/splunkbase-download.git && \
+    cd splunkbase-download/ && \
+    chmod +x ./splunkbase-download.sh
+    ./splunkbase-download.sh download 5206 0.0.3 ${base_sessionid}
 }
 
 load_data() {

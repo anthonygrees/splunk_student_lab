@@ -59,18 +59,13 @@ resource "aws_instance" "splunk" {
     source      = "./data/db_audit_30DAY.csv"
   }
 
-    provisioner "file" {
-    destination = "/tmp/splunk-app-for-amazon-connect_003.tgz"
-    source      = "./apps/splunk-app-for-amazon-connect_003.tgz"
-  }
-
   provisioner "file" {
     destination = "/tmp"
     source      = "./data/cloudtrail"
   }
 
   provisioner "file" {
-    content     = templatefile("${path.module}/templates/linux_node_user_data.sh.tpl", { splunk_password = var.splunk_password })
+    content     = templatefile("${path.module}/templates/linux_node_user_data.sh.tpl", { splunk_password = var.splunk_password, base_sessionid = var.base_sessionid})
     destination = "/tmp/linux_node_user_data.sh"
   }
 
