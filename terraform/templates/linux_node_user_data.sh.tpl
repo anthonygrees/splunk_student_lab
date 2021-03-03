@@ -47,7 +47,8 @@ create_http_event_collector() {
     echo " *************************************"
     echo " **** Create HTTP Event Collector ****"
     echo " *************************************"
-    sudo /opt/splunk/bin/splunk http-event-collector create new-token -uri https://localhost:8089 -description "this is a new token" -index main -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk http-event-collector create new-token -uri https://localhost:8089 -description "this is a new token" -disabled 1 -index main -indexes main -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk http-event-collector enable -name new-token -uri https://localhost:8089 -auth admin:${splunk_password}
 }
 
 install_splunk
