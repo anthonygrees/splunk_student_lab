@@ -43,7 +43,15 @@ load_data() {
     done
 }
 
+create_http_event_collector() {
+    echo " *************************************"
+    echo " **** Create HTTP Event Collector ****"
+    echo " *************************************"
+    sudo /opt/splunk/bin/splunk http-event-collector create new-token -uri https://localhost:8089 -description "this is a new token" -index main -auth admin:${splunk_password}
+}
+
 install_splunk
 install_apps
+create_http_event_collector
 load_data
 install_event_gen
