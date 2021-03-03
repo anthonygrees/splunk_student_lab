@@ -53,6 +53,6 @@ create_http_event_collector() {
 
 install_splunk
 install_apps
-create_http_event_collector
+##create_http_event_collector
 load_data
 install_event_gen
