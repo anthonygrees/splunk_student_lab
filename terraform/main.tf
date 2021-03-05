@@ -65,6 +65,16 @@ resource "aws_instance" "splunk" {
   }
 
   provisioner "file" {
+    destination = "/tmp/event-timeline-viz_150.tgz"
+    source      = "./apps/event-timeline-viz_150.tgz"
+  }
+
+  provisioner "file" {
+    destination = "/tmp/splunk-timeline-custom-visualization_150.tgz"
+    source      = "./apps/splunk-timeline-custom-visualization_150.tgz"
+  }
+
+  provisioner "file" {
     destination = "/tmp"
     source      = "./data/cloudtrail"
   }
