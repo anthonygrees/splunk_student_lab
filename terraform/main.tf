@@ -74,6 +74,11 @@ resource "aws_instance" "splunk" {
     source      = "./apps/splunk-timeline-custom-visualization_150.tgz"
   }
 
+provisioner "file" {
+    destination = "/tmp/awscodecommit.tgz"
+    source      = "./apps/awscodecommit.tgz"
+  }
+
   provisioner "file" {
     destination = "/tmp"
     source      = "./data/cloudtrail"
