@@ -9,7 +9,7 @@ You will need the following:
  - AWS access  
  - A `pem` key in the AWS IAM  - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
  - Terraform installed  
- - AWS CLI  
+ - AWS CLI  - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
  - A code editor like VS Code  
   
 Here is a script to set up you laptop using `Brew` - https://github.com/anthonygrees/laptop_setup
