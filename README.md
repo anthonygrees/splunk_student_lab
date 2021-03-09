@@ -3,7 +3,18 @@
 ### About  
 This repo creates Splunk Enterprise student lab environments on AWS.  
   
-### How to run the Terraform
+  
+### What you need to run the Terraform
+You will need the following:  
+ - AWS access  
+ - A `pem` key in the AWS IAM  - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
+ - Terraform installed  
+ - AWS CLI  
+ - A code editor like VS Code  
+  
+Here is a script to set up you laptop using `Brew` - https://github.com/anthonygrees/laptop_setup
+  
+### Setup the Terraform
 First you need the code !  
   
 ```bash
@@ -16,6 +27,25 @@ Next, create yourself a `terraform.tfvars` file with the following:
  - node_counter: Is the number of student VM's you need   
  - splunk_password: Is the password to set on Splunk `admin` account  
   
+Here is an example `tfvars` file:  
+```bash
+aws_profile = "default"
+aws_key_pair_file = "/Users/yourName/.ssh/yourPEMfile.pem"
+aws_key_pair_name = "yourPEMfile"
+aws_availability_zone = "a"
+tag_customer = "testing"
+tag_project = "project"
+tag_name = "name"
+tag_dept = "department"
+tag_contact = "yourName@splunk.com"
+tag_application = "splunk_student"
+tag_ttl = "4"
+node_counter = "1"
+splunk_password = "SetApassword55"
+linux_node_instance_type = "t3.large"
+```
+  
+### Initiate your Terraform
 Execute the terraform. First run the initialise to ensure the plugins you need are installed:  
   
 ```bash
@@ -28,7 +58,9 @@ Before you run Terraform to create your infrastructure, it's a good idea to see 
 terraform plan
 ```
   
-and then apply to create the infrastructure.  
+### Run your Terraform
+  
+Now run the apply to create the infrastructure.  
   
 ```bash
 terraform apply -auto-approve
