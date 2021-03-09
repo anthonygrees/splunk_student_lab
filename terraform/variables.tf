@@ -55,6 +55,10 @@ variable "splunk_password" {
   
 }
 
+variable "load_awscodecommit" {
+  default = "n"
+}
+
 #
 # Provider
 #

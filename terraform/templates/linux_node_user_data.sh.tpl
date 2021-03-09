@@ -32,7 +32,9 @@ install_apps() {
     sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-amazon-connect_003.tgz -auth admin:${splunk_password}
     sudo /opt/splunk/bin/splunk install app /tmp/event-timeline-viz_150.tgz -auth admin:${splunk_password}
     sudo /opt/splunk/bin/splunk install app /tmp/splunk-timeline-custom-visualization_150.tgz -auth admin:${splunk_password}
+    if [[ ${load_awscodecommit} = y ]] ; then
     sudo /opt/splunk/bin/splunk install app /tmp/awscodecommit.tgz -auth admin:${splunk_password}
+    fi
 }
 
 load_data() {

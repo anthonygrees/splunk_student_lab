@@ -85,7 +85,7 @@ provisioner "file" {
   }
 
   provisioner "file" {
-    content     = templatefile("${path.module}/templates/linux_node_user_data.sh.tpl", { splunk_password = var.splunk_password})
+    content     = templatefile("${path.module}/templates/linux_node_user_data.sh.tpl", { splunk_password = var.splunk_password, load_awscodecommit = var.load_awscodecommit})
     destination = "/tmp/linux_node_user_data.sh"
   }
 
