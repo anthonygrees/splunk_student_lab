@@ -59,9 +59,9 @@ resource "aws_instance" "splunk" {
     source      = "./data/db_audit_30DAY.csv"
   }
 
-  provisioner "file" {
-    destination = "/tmp/splunk-app-for-amazon-connect_003.tgz"
-    source      = "./apps/splunk-app-for-amazon-connect_003.tgz"
+   provisioner "file" {
+    destination = "/tmp/splunk-app-for-amazon-connect_004.tgz"
+    source      = "./apps/splunk-app-for-amazon-connect_004.tgz"
   }
 
   provisioner "file" {
@@ -74,9 +74,9 @@ resource "aws_instance" "splunk" {
     source      = "./apps/splunk-timeline-custom-visualization_150.tgz"
   }
 
-provisioner "file" {
-    destination = "/tmp/awscodecommit.tgz"
-    source      = "./apps/awscodecommit.tgz"
+  provisioner "file" {
+    destination = "/tmp/aws-codecommit-app_001.tgz"
+    source      = "./apps/aws-codecommit-app_001.tgz"
   }
 
   provisioner "file" {
