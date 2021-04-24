@@ -80,8 +80,28 @@ resource "aws_instance" "splunk" {
   }
 
   provisioner "file" {
+    destination = "/tmp/splunk-app-for-aws_602.tgz"
+    source      = "./apps/splunk-app-for-aws_602.tgz"
+  }
+
+    provisioner "file" {
+    destination = "/tmp/splunk-add-on-for-amazon-web-services_503.tgz"
+    source      = "./apps/splunk-add-on-for-amazon-web-services_503.tgz"
+  }
+
+  provisioner "file" {
+    destination = "/tmp/aws-waf-app_001.tgz"
+    source      = "./apps/aws-waf-app_001.tgz"
+  }
+
+  provisioner "file" {
     destination = "/tmp"
     source      = "./data/cloudtrail"
+  }
+
+    provisioner "file" {
+    destination = "/tmp"
+    source      = "./data/waf"
   }
 
   provisioner "file" {

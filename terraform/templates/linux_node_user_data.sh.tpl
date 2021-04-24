@@ -16,6 +16,7 @@ install_event_gen() {
     echo " ************************"
     git clone https://github.com/anthonygrees/splunk_eventgen_7x /tmp/splunk-eventgen-guide
     sudo cp -r /tmp/splunk-eventgen-guide/tutorial/ /opt/splunk/etc/apps/
+    sudo cp -r /tmp/splunk-eventgen-guide/AWS_EG/ /opt/splunk/etc/apps/
     sudo tar -xvf /tmp/splunk-eventgen-guide/eventgen_721.tgz -C /opt/splunk/etc/apps/
     sudo sed -i 's/disabled = true/disabled = false/g' /opt/splunk/etc/apps/SA-Eventgen/default/inputs.conf
     sudo /opt/splunk/bin/splunk stop
@@ -32,9 +33,11 @@ install_apps() {
     sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-amazon-connect_004.tgz -auth admin:${splunk_password}
     sudo /opt/splunk/bin/splunk install app /tmp/event-timeline-viz_150.tgz -auth admin:${splunk_password}
     sudo /opt/splunk/bin/splunk install app /tmp/splunk-timeline-custom-visualization_150.tgz -auth admin:${splunk_password}
-    # sudo /opt/splunk/bin/splunk install app /tmp/protocol-data-inputs_193.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/aws-waf-app_001.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-add-on-for-amazon-web-services_503.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-aws_602.tgz -auth admin:${splunk_password}
     if [[ ${load_awscodecommit} = y ]] ; then
-    sudo /opt/splunk/bin/splunk install app /tmp/aws-codecommit-app_001.tgz -auth admin:${splunk_password}
+     sudo /opt/splunk/bin/splunk install app /tmp/aws-codecommit-app_001.tgz -auth admin:${splunk_password}
     fi
 }
 
@@ -56,6 +59,7 @@ load_data() {
     do           
         sudo /opt/splunk/bin/splunk add oneshot /tmp/cloudtrail/cloudtrail$i.json -index main -sourcetype cloudtrail -auth admin:${splunk_password}
     done
+    sudo /opt/splunk/bin/splunk add oneshot /tmp/waf/awswaf1.json -index main -sourcetype aws:waf -auth admin:${splunk_password}
 }
 
 create_http_event_collector() {
@@ -66,9 +70,18 @@ create_http_event_collector() {
     sudo /opt/splunk/bin/splunk http-event-collector enable -name new-token -uri https://localhost:8089 -auth admin:${splunk_password}
 }
 
+install_splunk_pkg_toolkit() {
+    sudo apt update
+    sudo apt install python-pip -y
+    sudo pip install --upgrade pip
+    sudo curl https://download.splunk.com/misc/packaging-toolkit/splunk-packaging-toolkit-0.9.1.tar.gz --output /opt/splunk/etc/apps/splunk-packaging-toolkit-0.9.1.tar.gz
+    pip install /opt/splunk/etc/apps/splunk-packaging-toolkit-0.9.1.tar.gz
+}
+
 install_splunk
 install_java
+install_splunk_pkg_toolkit
 install_apps
 ##create_http_event_collector
-##load_data
+load_data
 install_event_gen
