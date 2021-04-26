@@ -16,7 +16,6 @@ install_event_gen() {
     echo " ************************"
     git clone https://github.com/anthonygrees/splunk_eventgen_7x /tmp/splunk-eventgen-guide
     sudo cp -r /tmp/splunk-eventgen-guide/tutorial/ /opt/splunk/etc/apps/
-    sudo cp -r /tmp/splunk-eventgen-guide/AWS_EG/ /opt/splunk/etc/apps/
     sudo tar -xvf /tmp/splunk-eventgen-guide/eventgen_721.tgz -C /opt/splunk/etc/apps/
     sudo sed -i 's/disabled = true/disabled = false/g' /opt/splunk/etc/apps/SA-Eventgen/default/inputs.conf
     sudo /opt/splunk/bin/splunk stop
