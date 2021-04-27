@@ -59,39 +59,9 @@ resource "aws_instance" "splunk" {
     source      = "./data/db_audit_30DAY.csv"
   }
 
-   provisioner "file" {
-    destination = "/tmp/splunk-app-for-amazon-connect_004.tgz"
-    source      = "./apps/splunk-app-for-amazon-connect_004.tgz"
-  }
-
   provisioner "file" {
-    destination = "/tmp/event-timeline-viz_150.tgz"
-    source      = "./apps/event-timeline-viz_150.tgz"
-  }
-
-  provisioner "file" {
-    destination = "/tmp/splunk-timeline-custom-visualization_150.tgz"
-    source      = "./apps/splunk-timeline-custom-visualization_150.tgz"
-  }
-
-  provisioner "file" {
-    destination = "/tmp/aws-codecommit-app_001.tgz"
-    source      = "./apps/aws-codecommit-app_001.tgz"
-  }
-
-  provisioner "file" {
-    destination = "/tmp/splunk-app-for-aws_602.tgz"
-    source      = "./apps/splunk-app-for-aws_602.tgz"
-  }
-
-    provisioner "file" {
-    destination = "/tmp/splunk-add-on-for-amazon-web-services_503.tgz"
-    source      = "./apps/splunk-add-on-for-amazon-web-services_503.tgz"
-  }
-
-  provisioner "file" {
-    destination = "/tmp/aws-waf-app_001.tgz"
-    source      = "./apps/aws-waf-app_001.tgz"
+    destination = "/tmp/indexer.conf"
+    source      = "./templates/indexes.conf"
   }
 
   provisioner "file" {

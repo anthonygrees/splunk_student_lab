@@ -10,11 +10,18 @@ install_splunk() {
     sudo /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt --seed-passwd ${splunk_password}
 }
 
+set_profile() {
+    sudo touch ~/.profile
+    sudo echo export SPLUNK_HOME=/opt/splunk >> ~/.profile
+    sudo echo export SPLUNK_DB=/opt/splunk/var/lib/splunk/defaultdb >> ~/.profile
+    cat ~/.profile
+    sudo cp /tmp/indexer.conf /opt/splunk/etc/system/local
+}
+
 install_event_gen() {
     echo " ************************"
     echo " ****    EventGen    ****"
     echo " ************************"
-    git clone https://github.com/anthonygrees/splunk_eventgen_7x /tmp/splunk-eventgen-guide
     sudo cp -r /tmp/splunk-eventgen-guide/tutorial/ /opt/splunk/etc/apps/
     sudo tar -xvf /tmp/splunk-eventgen-guide/eventgen_721.tgz -C /opt/splunk/etc/apps/
     sudo sed -i 's/disabled = true/disabled = false/g' /opt/splunk/etc/apps/SA-Eventgen/default/inputs.conf
@@ -29,14 +36,15 @@ install_apps() {
     echo " ********************************"
     echo " **** Install SplunkBaseApps ****"
     echo " ********************************"
-    sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-amazon-connect_004.tgz -auth admin:${splunk_password}
-    sudo /opt/splunk/bin/splunk install app /tmp/event-timeline-viz_150.tgz -auth admin:${splunk_password}
-    sudo /opt/splunk/bin/splunk install app /tmp/splunk-timeline-custom-visualization_150.tgz -auth admin:${splunk_password}
-    sudo /opt/splunk/bin/splunk install app /tmp/aws-waf-app_001.tgz -auth admin:${splunk_password}
-    sudo /opt/splunk/bin/splunk install app /tmp/splunk-add-on-for-amazon-web-services_503.tgz -auth admin:${splunk_password}
-    sudo /opt/splunk/bin/splunk install app /tmp/splunk-app-for-aws_602.tgz -auth admin:${splunk_password}
+    git clone https://github.com/anthonygrees/splunk_eventgen_7x /tmp/splunk-eventgen-guide
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/splunk-app-for-amazon-connect_004.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/event-timeline-viz_150.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/splunk-timeline-custom-visualization_150.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/aws-waf-app_001.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/splunk-add-on-for-amazon-web-services_503.tgz -auth admin:${splunk_password}
+    sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/splunk-app-for-aws_602.tgz -auth admin:${splunk_password}
     if [[ ${load_awscodecommit} = y ]] ; then
-     sudo /opt/splunk/bin/splunk install app /tmp/aws-codecommit-app_001.tgz -auth admin:${splunk_password}
+     sudo /opt/splunk/bin/splunk install app /tmp/splunk-eventgen-guide/apps/aws-codecommit-app_001.tgz -auth admin:${splunk_password}
     fi
 }
 
@@ -78,8 +86,9 @@ install_splunk_pkg_toolkit() {
 }
 
 install_splunk
-install_java
-install_splunk_pkg_toolkit
+set_profile
+##install_java
+##install_splunk_pkg_toolkit
 install_apps
 ##create_http_event_collector
 load_data
