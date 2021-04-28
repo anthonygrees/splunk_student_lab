@@ -11,11 +11,14 @@ install_splunk() {
 }
 
 set_profile() {
+    echo " ************************"
+    echo " **** Set .profile  ****"
+    echo " ************************"
     sudo touch ~/.profile
     sudo echo export SPLUNK_HOME=/opt/splunk >> ~/.profile
     sudo echo export SPLUNK_DB=/opt/splunk/var/lib/splunk/defaultdb >> ~/.profile
     cat ~/.profile
-    sudo cp /tmp/indexer.conf /opt/splunk/etc/system/local
+    sudo cp /tmp/indexes.conf /opt/splunk/etc/system/local
 }
 
 install_event_gen() {

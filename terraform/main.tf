@@ -60,7 +60,7 @@ resource "aws_instance" "splunk" {
   }
 
   provisioner "file" {
-    destination = "/tmp/indexer.conf"
+    destination = "/tmp/indexes.conf"
     source      = "./templates/indexes.conf"
   }
 
